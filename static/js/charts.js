@@ -104,7 +104,7 @@ function buildCharts(sample) {
     Plotly.newPlot("bar", barData, barLayout);
 
     // 1. Create the trace for the bubble chart.
-    var bubbleData = {
+    var bubbleData = [{
       x: otu_ids,
       y: sample_values,
       text: otu_labels,
@@ -115,8 +115,7 @@ function buildCharts(sample) {
          // sizeref: 2.0 * Math.max(sample_values) / (1**2),
           colorscale: "Geyser"
         }
-    };
-    var data = [bubbleData];
+    }];
     //console.log(data);
     // 2. Create the layout for the bubble chart.
     var bubbleLayout = {
@@ -133,6 +132,34 @@ function buildCharts(sample) {
     };
 
     // 3. Use Plotly to plot the data with the layout.
-    Plotly.newPlot('bubble', data, bubbleLayout);
+    Plotly.newPlot('bubble', bubbleData, bubbleLayout);
+
+    //gauge
+    var wfreq = data.metadata.filter(meta => meta.id == sample)[0].wfreq; 
+    //console.log(wfreq);
+    var gaugeData = [{
+      value: wfreq,
+      type: "indicator",
+      mode: "gauge+number",
+      title: {text: "<b>Belly Button Washing Frequency</b><br>Scrubs Per Week</br>"},
+      gauge: {
+        axis: { range: [null, 10], tickwidth: "2" },
+        bar: { color: "black" },
+        bgcolor: "white",
+        borderwidth: 1,
+        bordercolor: "black",
+        steps:[
+          {range: [0, 2], color: "red"},
+          {range: [2, 4], color: "orange"},
+          {range: [4, 6], color: "yellow"},
+          {range: [6, 8], color: "lightgreen"},
+          {range: [8, 10], color: "green"}
+        ]
+      }
+    }];
+
+    var layout = { width: 600, height: 500, margin: { t: 0, b: 0 } };
+    Plotly.newPlot('gauge', gaugeData, layout);
+  
 });
 }
