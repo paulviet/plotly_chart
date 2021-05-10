@@ -1,0 +1,11 @@
+body {
+    color: #57707d;
+}
+.jumbotron {
+    background-image: url("../images/home-banner.jpg");
+    background-size: 100% 100%;
+    text-align: center;
+}
+.col-md-12 {
+    border: solid 5px rgba(10, 0, 66, 0.37);
+  }
